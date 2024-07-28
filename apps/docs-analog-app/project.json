@@ -1,0 +1,55 @@
+{
+  "name": "docs-analog-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@analogjs/platform:vite",
+      "defaultConfiguration": "production",
+      "configurations": {
+        "development": {
+          "mode": "development"
+        },
+        "production": {
+          "sourcemap": false,
+          "mode": "production"
+        }
+      },
+      "outputs": [
+        "{options.outputPath}",
+        "{workspaceRoot}/dist/apps/docs-analog-app/.nitro",
+        "{workspaceRoot}/dist/apps/docs-analog-app/ssr",
+        "{workspaceRoot}/dist/apps/docs-analog-app/analog"
+      ],
+      "options": {
+        "main": "apps/docs-analog-app/src/main.ts",
+        "configFile": "apps/docs-analog-app/vite.config.ts",
+        "outputPath": "dist/apps/docs-analog-app/client",
+        "tsConfig": "apps/docs-analog-app/tsconfig.app.json"
+      }
+    },
+    "serve": {
+      "executor": "@analogjs/platform:vite-dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "docs-analog-app:build",
+        "port": 4200
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "docs-analog-app:build:development",
+          "hmr": true
+        },
+        "production": {
+          "buildTarget": "docs-analog-app:build:production"
+        }
+      }
+    },
+    "test": {
+      "executor": "@analogjs/vitest-angular:test",
+      "outputs": ["{projectRoot}/coverage"]
+    }
+  },
+  "tags": [],
+  "sourceRoot": "apps/docs-analog-app/src"
+}
